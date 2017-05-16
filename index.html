@@ -1,65 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="gwenApp">
     <head>
-
-        <style type="text/css">
-            #mySpan {
-                color: blue;
-            }
-            input {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .input-small {
-                width: 100px;
-            }
-
-            td {
-                border: 1px solid black;
-            }
-        </style>
-    </head>
-    <body>
-        <!--<script src="myScript.js"></script>-->
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
         <script type="text/javascript">
-            var myVar = 0; 
-            function myFunction() {
-                console.log("test !");
-                myVar++;
-                console.log("j'ai cliqué "+ myVar +" fois !");
-            }
+            //je récupère mon application défini par un ng-app dans le HTML
+            var app = angular.module('gwenApp', []);
 
-            function myFunction2(monElement) {
-                var toto = document.getElementById("mySpan");
-                toto.innerHTML = monElement.value;
-            }
+            //j'ajoute un controleur sur mon application
+            app.controller('myCtrl', function($scope) {
+                $scope.jours = ["lu", "ma", "me", "je", "ve", "sa", "di"];
+                $scope.motifs = ["Congés", "Autres", "Absences", "etc"];
+            });
         </script>
-        <div>
-            <input class="input-small" type="text"/>
-            <input class="input-small" type="text"/>
-            <input type="button" value="click me !" onclick="myFunction();"/>
-            <span id="mySpan">toto</span>
-        </div>
-        <div>
-            <input type="text"/>
-            <input type="text"/>
-            <input type="text"/>
-            <input type="button" value="click me 2 !"/>
-        </div>
-
-        <table>
+        <link rel="stylesheet" href="myStyle.css"/>
+    </head>
+    <body ng-controller="myCtrl">
+        <table class="week">
             <tr>
-                <td>
-                    <input class="input-small" type="text" onchange="myFunction2(this)"/>
-                </td>
-                <td>tttt !</td>
-                <td>tttt !</td>
+                <th>hhh</th>
+                <th ng-repeat="jourActuel in jours">{{jourActuel}}</th>
             </tr>
-            <tr>
-                <td>ooo !</td>
-                <td>ooo !</td>
-                <td>ooo !</td>
+            <tr ng-repeat="motif in motifs">
+                <td>{{motif}}</td>
+                <td ng-repeat="jourActuel in jours"><input type="text"></td>
             </tr>
         </table>
     </body>
